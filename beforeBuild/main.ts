@@ -1,4 +1,4 @@
-/// <reference path='1.ts'/>
+/// <reference path='components/person.ts'/>
 namespace Test{
     var joe = new Person("Joe");
 
