@@ -9,6 +9,19 @@ module.exports = function (grunt) {
             buildForTest: {
                 src: 'src/*.ts',
                 out: 'buildForTest/final.js'
+            },
+            //@zone 個別的 ts compile 成 js 之後再給 mocha 做測試
+            buildForUnitTest: {
+                options:{
+                   rootDir: 'src/'
+                },
+                files: [{
+                    expand: true,     // Enable dynamic expansion.
+                    cwd: 'src/',        // Src matches are relative to this path.
+                    src: ['**/*.ts'], // Actual pattern(s) to match.
+                    dest: 'beforeUnitTest/',   // Destination path prefix.
+                    ext: '.js',         // Dest filepaths will have this extension.
+                }]
             }
         },
         strip_code: {
@@ -22,7 +35,7 @@ module.exports = function (grunt) {
                 files: [{
                         expand: true,     // Enable dynamic expansion.
                         cwd: 'src/',        // Src matches are relative to this path.
-                        src: ['**/*.ts'], // Actual pattern(s) to match.
+                        src: ['**/*.*'], // Actual pattern(s) to match.
                         dest: 'beforeBuild/',   // Destination path prefix.
                         //ext: '_stripped.ts',         // Dest filepaths will have this extension.
                     }]
@@ -36,6 +49,9 @@ module.exports = function (grunt) {
 
     //@zone build for test
     grunt.registerTask('buildForTest', ['ts:buildForTest']);
+
+    //@zone compile for unit test
+    grunt.registerTask('buildForUnitTest', ['ts:buildForUnitTest']);
 
     //@zone build for production
     grunt.registerTask('buildForProduction', ['strip_code', 'ts']);

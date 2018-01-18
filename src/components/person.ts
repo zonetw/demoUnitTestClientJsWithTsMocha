@@ -1,3 +1,4 @@
+/// <reference path='pet/Dog.ts'/>
 namespace Test {
     export class Person {
         /*FK1*/
@@ -6,8 +7,11 @@ namespace Test {
         /*FK2*/
         private name: string;
 
+        private _dogs: Array<Dog>;
+
         public constructor(name: string) {
             this.name = name;
+            this._dogs = [];
         }
 
         greet() {
@@ -22,5 +26,10 @@ namespace Test {
             return this._counter;
         }
         /*FK2*/
+
+        raiseDog(dog: Dog){
+            this._dogs.push(dog);
+            dog.setMaster(this);
+        }
     }
 }
