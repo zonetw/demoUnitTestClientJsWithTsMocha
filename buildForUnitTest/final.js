@@ -19,6 +19,6 @@ var Test;
 var Test;
 (function (Test) {
     var joe = new Test.Person("Joe");
-    console.log(joe.greet());
+    console.log("Joe greet v2 : " + joe.greet());
 })(Test || (Test = {}));
 //# sourceMappingURL=final.js.map
