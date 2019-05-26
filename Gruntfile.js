@@ -16,7 +16,7 @@ module.exports = function (grunt) {
                 src: 'src/*.ts',
                 out: 'buildForTest/final.js'
             },
-            //@zone 個別的 ts compile 成 js 之後再給 mocha 做測試
+            //@zone Run Unit test after single ts compiled to single js 
             buildForUnitTest0: {
                 options:{
                    rootDir: 'src/'
@@ -42,7 +42,7 @@ module.exports = function (grunt) {
                 }]
             },
             your_target: {
-                //這種格式只要符合條件就會被處理到, 建立鏡像的目錄結構到設定的資料夾
+                // Make all ts file compiled to single js in the beforeBuild folder.
                 files: [{
                         expand: true,     // Enable dynamic expansion.
                         cwd: 'src/',        // Src matches are relative to this path.
@@ -78,12 +78,12 @@ module.exports = function (grunt) {
     //=========================
     // task
     //=========================
-    //@zone 開發時使用
+    //@zone Task for development
     grunt.registerTask('default', ['browserSync:unitTest', 'watch']);
 
-    //@zone 測試用的 code 不會拿掉
+    //@zone Code for testing won't be stripped
     grunt.registerTask('buildForTest', ['ts:buildForTest']);
-    //@zone 發佈前先移除測試用 code 再發佈
+    //@zone Striping code before publish
     grunt.registerTask('buildForProduction', ['strip_code', 'ts']);
 
 };
